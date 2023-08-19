@@ -8,6 +8,15 @@
   --white: #fff;
   --cloud: #f4f4fd;
   --cornflower: #e7e9fc;
+  --transit-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-time: 250ms;
+}
+
+figure {
+  margin: 0;
+}
+figcaption {
+  margin: 0;
 }
 body {
   font-family: "Roboto", sans-serif;
@@ -104,9 +113,11 @@ header {
 
 .address:hover {
   color: #404bbf;
+  transition: color var(--transit-function) var(--trans-time);
 }
 .address:focus {
   color: #404bbf;
+  transition: color var(--transit-function) var(--trans-time);
 }
 
 .address {
@@ -145,10 +156,24 @@ address {
   text-decoration: none;
   font-family: inherit;
 }
+
 .menu-element:hover {
   color: var(--ocean);
+  transition: color var(--transit-function) var(--trans-time);
+}
+.active {
+  position: relative;
 }
 
+.active::after {
+  content: "";
+  background-color: var(--ocean);
+  width: 100%;
+  border-radius: 2px;
+  height: 4px;
+  position: absolute;
+  bottom: -20px;
+}
 footer {
   background: var(--navyblue);
   padding: 100px 0;
@@ -196,6 +221,7 @@ footer {
 }
 .footer-social-icon:hover {
   fill: #31d0aa;
+  transition: fill var(--transit-function) var(--trans-time);
 }
 
 .social-all {
@@ -298,10 +324,59 @@ svg {
 .order-service-button:hover {
   background: var(--ocean);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+  transition-property: background-color box-shadow;
+  transition: var(--transit-function) var(--trans-time);
 }
 .order-service-button:focus {
   background: var(--ocean);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+  transition-property: background-color box-shadow;
+  transition: var(--transit-function) var(--trans-time);
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(46, 47, 66, 0.4);
+  width: 100%;
+  height: 100%;
+  transition-property: translate 0 100% 0;
+  transition-property: opacity 1;
+  transition-duration: 1s;
+}
+.modal {
+  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 408px;
+  height: 584px;
+  border-radius: 4px;
+  background: #fcfcfc;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14);
+}
+.is-hidden {
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition-property: opacity 1;
+  translate: 0 100% 0;
+  transition-duration: 1s;
+}
+.close-modal {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  background: none;
+  flex-shrink: 0;
+  justify-content: center;
+  display: inline-flex;
 }
 
 .trait {
@@ -403,6 +478,7 @@ svg {
 }
 .team-social-icon:hover {
   fill: var(--ocean);
+  transition: fill var(--transit-function) var(--trans-time);
 }
 .customers-list {
   display: inline-flex;
@@ -423,6 +499,8 @@ svg {
 .customer-rectangle:hover {
   fill: var(--ocean);
   border-color: var(--ocean);
+  transition-property: fill border;
+  transition: var(--transit-function) var(--trans-time);
 }
 /*portfolio styles*/
 .portfolio-section {
@@ -456,19 +534,23 @@ svg {
   white-space: nowrap;
 }
 .filter-button:hover {
-  background: var(--ocean);
+  background-color: var(--ocean);
   color: var(--white);
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.12),
     0px 2px 1px 0px rgba(0, 0, 0, 0.08), 0px 3px 1px 0px rgba(0, 0, 0, 0.1);
   border-color: var(--ocean);
   cursor: pointer;
+  transition-property: background-color color box-shadow;
+  transition: var(--transit-function) var(--trans-time);
 }
 .filter-button:focus {
   background: var(--ocean);
   color: var(--white);
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.12),
     0px 2px 1px 0px rgba(0, 0, 0, 0.08), 0px 3px 1px 0px rgba(0, 0, 0, 0.1);
-  border: none;
+  border-color: var(--ocean);
+  transition-property: background-color color box-shadow;
+  transition: var(--transit-function) var(--trans-time);
 }
 .portfolio-list {
   display: flex;
@@ -487,6 +569,30 @@ svg {
     0px 1px 1px 0px rgba(46, 47, 66, 0.16),
     0px 1px 6px 0px rgba(46, 47, 66, 0.08);
   cursor: pointer;
+  transition-property: box-shadow;
+  transition: var(--transit-function) var(--trans-time);
+}
+.closed {
+  position: relative;
+  overflow: hidden;
+}
+.opened {
+  position: absolute;
+  translate: 0 100% 0;
+  transition-property: translate;
+  transition-duration: 250ms;
+  inset: 0;
+  color: var(--cloud, #f4f4fd);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.32px;
+  width: 100%;
+  background-color: var(--iris);
+  padding: 40px 32px 164px 32px;
+}
+.project-card:hover .opened {
+  translate: 0;
 }
 .card-content {
   padding: 32px 16px;
