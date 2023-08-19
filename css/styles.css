@@ -172,7 +172,8 @@ address {
   border-radius: 2px;
   height: 4px;
   position: absolute;
-  bottom: -20px;
+  bottom: -28px;
+  left: 0;
 }
 footer {
   background: var(--navyblue);
